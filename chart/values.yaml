@@ -1,0 +1,130 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/aptabase/aptabase
+  pullPolicy: Always
+  tag: "main"
+
+nameOverride: aptabase
+fullnameOverride: aptabase
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true # Optional
+  className: "traefik" # Optional
+  annotations:
+    #kubernetes.io/ingress.class: traefik # Optional
+    #cert-manager.io/cluster-issuer: ssl-clusterissuer # Optional
+    #traefik.ingress.kubernetes.io/router.entrypoints: web,websecure # Optional
+    #traefik.ingress.kubernetes.io/router.tls: "true" # Optional
+    #traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd # Optional
+  hosts:
+    - host: aptabase.yourdomain.com 
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - aptabase.yourdomain.com 
+      secretName: aptabase-yourdomain-tls
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Aptabase
+env:
+  - name: BASE_URL
+    value: "https://aptabase.yourdomain.com" # Modify
+  - name: AUTH_SECRET
+    value: "0tR7Gr9UyBMduo17fPgrLLElCwnF141zYKey0iISz3vEsDda5J" # Change (Generate random 50 characters.)
+  - name: DATABASE_URL
+    value: "Host=aptabase-postgresql;Port=5432;User Id=postgres;Password=postgres;Database=aptabase" # Modify with postgresql auth
+  - name: CLICKHOUSE_URL
+    value: "Host=aptabase-clickhouse;Port=8123;Username=default;Password=clickhouse" # Modify with ClickHouse auth
+  # Other configurable environment variables, such as OAuth for GitHub, Google, or SMTP, can be found at: 
+  # https://github.com/aptabase/aptabase/blob/main/src/Features/EnvSettings.cs
+
+
+# Postgres
+postgresql:
+  enabled: true
+  auth:
+    username: postgres # Modify
+    password: postgres # Modify
+    database: aptabase
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi # Modify OPTIONAL
+  service:
+    ports:
+      postgresql: 5432
+
+# ClickHouse
+clickhouse:
+  enabled: true
+  auth:
+    username: default # Modify
+    password: clickhouse # Modify
+  replicaCount: 1
+  service:
+    ports:
+      http: 8123
+      tcp: 9000
+  persistence:
+    enabled: true
+    size: 8Gi # Modify OPTIONAL
