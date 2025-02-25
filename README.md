@@ -40,13 +40,13 @@ This guide will walk you through the step-by-step process to install the Aptadat
  ```
  ![alt text](src/2.png)
 
-1.  Select the Aptabase pod (aptabase-66d6d775f7-866l5 in my case), then enter the command. You will find the URL that you need to copy into the browser to activate the account (it starts at the red arrow):
+8.  Select the Aptabase pod (aptabase-66d6d775f7-866l5 in my case), then enter the command. You will find the URL that you need to copy into the browser to activate the account (it starts at the red arrow):
     ```bash
     kubectl logs <PodName> -n <YourNamespace>
     ```
    ![alt text](src/3.png)
 
-2.   Copy the URL and paste it into the browser.
+9.   Copy the URL and paste it into the browser.
 ![alt text](src/4.png)
 
    
