@@ -6,7 +6,7 @@ This guide will walk you through the step-by-step process to install the Aptadat
    ```bash
    git clone https://github.com/Zakariasma/Helm-aptabase.git
 
-2. Rendez vous dans le repertoir cloné
+2. Go to the directory
    ```bash
    cd Helm-aptabase/chart
 
