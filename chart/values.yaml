@@ -120,11 +120,19 @@ clickhouse:
   auth:
     username: default # Modify
     password: clickhouse # Modify
-  replicaCount: 1
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi # Modify OPTIONAL
   service:
     ports:
       http: 8123
       tcp: 9000
+  initContainers: [] # Modify OPTIONAL
+  shards: 1 # Modify OPTIONAL
+  replicaCount: 1 # Modify OPTIONAL
+  zookeeper:
+    enabled: false # Modify OPTIONAL
   persistence:
-    enabled: true
-    size: 8Gi # Modify OPTIONAL
+    enabled: false # Modify OPTIONAL
+
