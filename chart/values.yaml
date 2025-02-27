@@ -1,3 +1,47 @@
+# Postgres
+postgresql:
+  enabled: true
+  auth:
+    username: postgres # Modify
+    password: postgres # Modify
+    database: aptabase
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi # Modify OPTIONAL
+  service:
+    ports:
+      postgresql: 5432
+
+# ClickHouse
+clickhouse:
+  enabled: true
+  auth:
+    username: default # Modify
+    password: clickhouse # Modify
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi # Modify OPTIONAL
+  resources:  
+    requests:
+      memory: "2Gi"
+      cpu: "500m"
+    limits:
+      memory: "4Gi"
+      cpu: "1000m"
+  service:
+    ports:
+      http: 8123
+      tcp: 9000
+  initContainers: [] # Modify OPTIONAL
+  shards: 1 # Modify OPTIONAL
+  replicaCount: 1 # Modify OPTIONAL
+  zookeeper:
+    enabled: false # Modify OPTIONAL
+  persistence:
+    enabled: false # Modify OPTIONAL
+
 replicaCount: 1
 image:
   repository: ghcr.io/aptabase/aptabase
@@ -98,41 +142,4 @@ env:
   # Other configurable environment variables, such as OAuth for GitHub, Google, or SMTP, can be found at: 
   # https://github.com/aptabase/aptabase/blob/main/src/Features/EnvSettings.cs
 
-
-# Postgres
-postgresql:
-  enabled: true
-  auth:
-    username: postgres # Modify
-    password: postgres # Modify
-    database: aptabase
-  primary:
-    persistence:
-      enabled: true
-      size: 8Gi # Modify OPTIONAL
-  service:
-    ports:
-      postgresql: 5432
-
-# ClickHouse
-clickhouse:
-  enabled: true
-  auth:
-    username: default # Modify
-    password: clickhouse # Modify
-  primary:
-    persistence:
-      enabled: true
-      size: 8Gi # Modify OPTIONAL
-  service:
-    ports:
-      http: 8123
-      tcp: 9000
-  initContainers: [] # Modify OPTIONAL
-  shards: 1 # Modify OPTIONAL
-  replicaCount: 1 # Modify OPTIONAL
-  zookeeper:
-    enabled: false # Modify OPTIONAL
-  persistence:
-    enabled: false # Modify OPTIONAL
 
