@@ -30,6 +30,7 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
+          cd chart
           helm dependency update .
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
