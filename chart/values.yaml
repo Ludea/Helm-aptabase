@@ -69,7 +69,7 @@ service:
   port: 8080
 
 ingress:
-  enabled: true # Optional
+  enabled: false # Optional
   className: "traefik" # Optional
   annotations:
     #kubernetes.io/ingress.class: traefik # Optional
@@ -132,7 +132,7 @@ affinity: {}
 # Aptabase
 env:
   - name: BASE_URL
-    value: "https://aptabase.yourdomain.com" # Modify
+    value: "http://localhost:8080" # Modify
   - name: AUTH_SECRET
     value: "0tR7Gr9UyBMduo17fPgrLLElCwnF141zYKey0iISz3vEsDda5J" # Change (Generate random 50 characters.)
   - name: DATABASE_URL
