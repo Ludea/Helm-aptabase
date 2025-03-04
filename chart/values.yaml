@@ -25,10 +25,10 @@ clickhouse:
       size: 8Gi # Modify OPTIONAL
   resources:  
     requests:
-      memory: "2Gi"
+      memory: "256Mi"
       cpu: "500m"
     limits:
-      memory: "4Gi"
+      memory: "512Mi"
       cpu: "1000m"
   service:
     ports:
