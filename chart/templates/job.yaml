@@ -10,5 +10,5 @@ spec:
       containers:
         - name: wait
           image: busybox
-          command: ['sh', '-c', 'until nc -z helm-aptabase-postgresql 5432; do sleep 5; done']
+          command: ['sh', '-c', 'until nc -z aptabase-postgresql 5432; do sleep 5; done']
       restartPolicy: Never
